@@ -1,8 +1,8 @@
 2D Game Engine
 The GameEngine contains following systems
-#Memory Manager
+# Memory Manager
  - This Game Engine uses a custom memory manager which includes Fixed Size Allocators and other Allocation and Core Memory Functions
-#Containers
+# Containers
  - Custom BitArray class
  - SmartPointer and WeakPtrs for managing creation and deletion of Objects
 #Job System
