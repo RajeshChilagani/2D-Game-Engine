@@ -1,0 +1,77 @@
+{
+  "GameObject": [
+    {
+      "Name": "Player",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Position": {
+            "x": -100,
+            "y": 0,
+            "z": 0
+          },
+          "Rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 45
+          }
+        },
+        {
+          "Name": "PhysicsBody",
+          "mass": 1,
+          "drag": 1,
+          "ExternalForce": {
+            "x": "0",
+            "y": "0",
+            "z": "0"
+          }
+        },
+        {
+          "Name": "PlayerController"
+        },
+        {
+          "Name": "SpriteRenderer",
+          "FileLocaiton": "Assests\\1.dds"
+        },
+        {
+          "Name": "ColliderComponent"
+        }
+      ]
+    },
+    {
+      "Name": "Zombie",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Position": {
+            "x": 100,
+            "y": 0,
+            "z": 0
+          },
+          "Rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "PhysicsBody",
+          "mass": 1,
+          "drag": 1,
+          "ExternalForce": {
+            "x": "0",
+            "y": "0",
+            "z": "0"
+          }
+        },
+        {
+          "Name": "SpriteRenderer",
+          "FileLocaiton": "Assests\\2.dds"
+        },
+        {
+          "Name": "ColliderComponent"
+        }
+      ]
+    }
+  ]
+}

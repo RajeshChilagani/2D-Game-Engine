@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\JobSystem\Console\ConsolePrint.Win32.cpp" />
+    <ClCompile Include="Core\JobSystem\HashedString\HashedString.cpp" />
+    <ClCompile Include="Core\JobSystem\JobSystem\IJob.cpp" />
+    <ClCompile Include="Core\JobSystem\JobSystem\JobRunner.cpp" />
+    <ClCompile Include="Core\JobSystem\JobSystem\JobSystem.cpp" />
+    <ClCompile Include="Core\JobSystem\JobSystem\SharedJobQueue.cpp" />
+    <ClCompile Include="Core\JobSystem\Syncronization\Events.cpp" />
+    <ClCompile Include="Core\JobSystem\Syncronization\Mutex.cpp" />
+    <ClCompile Include="Core\JobSystem\Syncronization\Semaphore.cpp" />
+    <ClCompile Include="Core\Math\Matrix4.cpp" />
+    <ClCompile Include="Core\Math\Point2D.cpp" />
+    <ClCompile Include="Core\Math\Vector3.cpp" />
+    <ClCompile Include="Core\Math\Vector4.cpp" />
+    <ClCompile Include="Core\Memory\Allocators.cpp" />
+    <ClCompile Include="Core\Memory\MemoryInterface.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EngineHigh\ClassLoader\ClassLoader.cpp" />
+    <ClCompile Include="EngineHigh\Collision\CollisionSystem.cpp" />
+    <ClCompile Include="EngineHigh\GlobalSystem\GlobalSystem.cpp" />
+    <ClCompile Include="EngineHigh\Input\Input.cpp" />
+    <ClCompile Include="EngineHigh\Physics\PhysicsCore.cpp" />
+    <ClCompile Include="EngineHigh\Rendering\Renderer.cpp" />
+    <ClCompile Include="EngineLow\FileIO\LoadFile.cpp" />
+    <ClCompile Include="GameCommon\GameObject\GameObject.cpp" />
+    <ClCompile Include="Core\Containers\BitArray.cpp" />
+    <ClCompile Include="Core\Memory\FixedSizeAllocator.cpp" />
+    <ClCompile Include="Core\Memory\HeapManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Core.h" />
+    <ClInclude Include="Core\Helpers\Helpers.h" />
+    <ClInclude Include="Core\JobSystem\Console\ConsolePrint.h" />
+    <ClInclude Include="Core\JobSystem\HashedString\HashedString-inl.h" />
+    <ClInclude Include="Core\JobSystem\HashedString\HashedString.h" />
+    <ClInclude Include="Core\JobSystem\JobSystem\IJob.h" />
+    <ClInclude Include="Core\JobSystem\JobSystem\INamed.h" />
+    <ClInclude Include="Core\JobSystem\JobSystem\JobRunner.h" />
+    <ClInclude Include="Core\JobSystem\JobSystem\JobSystem.h" />
+    <ClInclude Include="Core\JobSystem\JobSystem\SharedJobQueue-inl.h" />
+    <ClInclude Include="Core\JobSystem\JobSystem\SharedJobQueue.h" />
+    <ClInclude Include="Core\JobSystem\Syncronization\Events.h" />
+    <ClInclude Include="Core\JobSystem\Syncronization\Mutex.h" />
+    <ClInclude Include="Core\JobSystem\Syncronization\ScopeLock.h" />
+    <ClInclude Include="Core\JobSystem\Syncronization\Semaphore.h" />
+    <ClInclude Include="Core\JobSystem\Syncronization\SingleWriterMultipleReader.h" />
+    <ClInclude Include="Core\JobSystem\Syncronization\WaitableObject.h" />
+    <ClInclude Include="Core\Math\MathUtilitiesh.h" />
+    <ClInclude Include="Core\Math\Matrix4.h" />
+    <ClInclude Include="Core\Math\Matrix4_inl.h" />
+    <ClInclude Include="Core\Math\Point2D.h" />
+    <ClInclude Include="Core\Math\Point2D_inl.h" />
+    <ClInclude Include="Core\Math\Vector3.h" />
+    <ClInclude Include="Core\Math\Vector3_inl.h" />
+    <ClInclude Include="Core\Math\Vector4.h" />
+    <ClInclude Include="Core\Math\Vector4_inl.h" />
+    <ClInclude Include="Core\Memory\Allocatorsh.h" />
+    <ClInclude Include="Core\SmartPointers\SmartPtr.h" />
+    <ClInclude Include="Core\SmartPointers\WeakPtr.h" />
+    <ClInclude Include="Core\Structs\Structs.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="EngineHeader.h" />
+    <ClInclude Include="EngineHigh\ClassLoader\ClassLoader.h" />
+    <ClInclude Include="EngineHigh\Collision\CollisionSystem.h" />
+    <ClInclude Include="EngineHigh\GlobalSystem\GlobalSystem.h" />
+    <ClInclude Include="EngineHigh\Input\Input.h" />
+    <ClInclude Include="EngineHigh\Input\KeyCodes.h" />
+    <ClInclude Include="EngineHigh\Physics\PhysicsCore.h" />
+    <ClInclude Include="EngineHigh\Rendering\Renderer.h" />
+    <ClInclude Include="EngineLow\FileIO\LoadFile.h" />
+    <ClInclude Include="EngineLow\Timer.h" />
+    <ClInclude Include="GameCommon\GameObject\Components.h" />
+    <ClInclude Include="GameCommon\GameObject\EC.h" />
+    <ClInclude Include="GameCommon\GameObject\GameObject.h" />
+    <ClInclude Include="GameObject\Components.h" />
+    <ClInclude Include="GameObject\EC.h" />
+    <ClInclude Include="Core\Containers\BitArray.h" />
+    <ClInclude Include="Core\Containers\BitArray_inl.h" />
+    <ClInclude Include="Core\Memory\FixedSizeAllocator.h" />
+    <ClInclude Include="Core\Memory\FixedSizeAllocator_inl.h" />
+    <ClInclude Include="Core\Memory\HeapManager.h" />
+    <ClInclude Include="Core\Memory\HeapManager_inl.h" />
+    <ClInclude Include="Core\Memory\MemoryInterface.h" />
+    <ClInclude Include="Vendor\Json.h" />
+    <ClInclude Include="Vendor\nlohmann\json.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Dependencies\GLib\GLib.vcxproj">
+      <Project>{b2ab67de-b7fa-42ba-b060-959487392aea}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{B3F59FEE-F5AE-4F6D-A4B2-FE2E8C6983F1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Engine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)bin-int\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)bin-int\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)bin-int\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)bin-int\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
