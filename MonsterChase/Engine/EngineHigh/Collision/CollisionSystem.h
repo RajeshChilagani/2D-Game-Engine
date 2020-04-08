@@ -20,10 +20,10 @@ namespace Engine
 		static bool Init();
 		static void AddCollisionObject(SmartPtr<Entity> i_CollisionBody);
 		static void Run(Timer delta);
-		static bool CheckAABB(SmartPtr<Entity>& i_A, SmartPtr<Entity>& i_B);
+		static bool CheckAABB(SmartPtr<Entity>& i_A, SmartPtr<Entity>& i_B, Timer deltaTime);
 		static void ShutDown();
 		void UpdateCollidingObjects();
-		void Update(float deltaTime);
+		void Update(Timer deltaTime);
 	private:
 		Collision() {}
 		vector<WeakPtr<Entity>>   m_CollisionObjects;

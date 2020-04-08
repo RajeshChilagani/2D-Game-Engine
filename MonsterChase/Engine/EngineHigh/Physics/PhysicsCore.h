@@ -24,7 +24,7 @@ namespace Engine
 			void UpdatePhysicsObjects();
 			void Update(float deltaTime);
 		private:
-			Physics() :m_Gravity(MATH_API::Vector3(0.0f, -9.8f, 0.0f)) {}
+			Physics() :m_Gravity(MATH_API::Vector3(0.0f, 0.0f, 0.0f)) {}
 			MATH_API::Vector3 m_Gravity;
 			vector<WeakPtr<Entity>>   m_PhysicsObjects;
 			vector<WeakPtr<Entity>>   m_NewPhysicsObjects;

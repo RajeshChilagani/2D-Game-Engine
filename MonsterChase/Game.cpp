@@ -12,7 +12,7 @@ namespace Game
 			GLib::SetKeyStateChangeCallback(Engine::Input::InputCallBack);
 		}
 		Engine::Helpers::FloatingPtUnitTest();
-		INPUT.MapKeys(KC_A, KC_D, KC_W, KC_S, 100.0f);           //Map Keys(L,R,U,D) and Setup Input Force
+		INPUT.MapKeys(KC_A, KC_D, KC_W, KC_S, 200.0f);           //Map Keys(L,R,U,D) and Setup Input Force
 		return bSuccess;
 	}
 	void Run()
