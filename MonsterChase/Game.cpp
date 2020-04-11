@@ -6,7 +6,7 @@ namespace Game
 {
 	bool Init(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 	{
-		bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "2DGame", -1, 1920, 1080);
+		bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "2DGame", -1, 800, 600);
 		if (bSuccess)
 		{
 			GLib::SetKeyStateChangeCallback(Engine::Input::InputCallBack);

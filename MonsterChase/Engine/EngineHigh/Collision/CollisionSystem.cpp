@@ -42,9 +42,13 @@ namespace Engine
 								{
 									if (CheckAABB(ICollisionObject, JCollisionObject,deltaTime))
 									{
-										ICollisionObject->getComponent<Transform>()->setVelocity() = ICollisionObject->getComponent<Transform>()->getVelocity()*-1;
-										JCollisionObject->getComponent<Transform>()->setVelocity() += ICollisionObject->getComponent<Transform>()->getVelocity();
+										//ICollisionObject->getComponent<Transform>()->setVelocity() = ICollisionObject->getComponent<Transform>()->getVelocity()*-1;
+										//JCollisionObject->getComponent<Transform>()->setVelocity() += ICollisionObject->getComponent<Transform>()->getVelocity();
 										TRACE_INFO("Collison Occured");
+									}
+									else
+									{
+										TRACE_INFO(" No Collison Occured");
 									}
 								}
 							}
@@ -280,9 +284,9 @@ namespace Engine
 		
 		if (tCloses.size() > 0 && tOpens.size()>0)
 		{
-			float latestTClose = *(min_element(tCloses.begin(), tCloses.end()));
-			float earliestTOpen = *(max_element(tOpens.begin(), tOpens.end()));
-			if (!(latestTClose < earliestTOpen))
+			float latestTClose = *(max_element(tCloses.begin(), tCloses.end()));
+			float earliestTOpen = *(min_element(tOpens.begin(), tOpens.end()));
+			if ((latestTClose > earliestTOpen))
 			{
 				return false;
 			}
