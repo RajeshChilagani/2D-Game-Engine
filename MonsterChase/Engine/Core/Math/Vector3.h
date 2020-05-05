@@ -41,6 +41,11 @@ namespace Engine
 
 			~Vector3();
 
+			float Length() const;
+			float LengthSq() const;
+
+			void Normalize();
+			Vector3 GetNormalized() const;
 			static const Vector3 zero;
 			friend inline std::ostream& operator<<(std::ostream& stream, const Vector3& vector)
 			{
@@ -70,7 +75,7 @@ namespace Engine
 		bool operator==(const Vector3 & i_lhs, const Vector3 & i_rhs);
 		bool operator!=(const Vector3 & i_lhs, const Vector3 & i_rhs);
 
-		inline int dot(const Vector3 & i_lhs, const Vector3 & i_rhs);
+		inline float dot(const Vector3 & i_lhs, const Vector3 & i_rhs);
 
 
 	}//Math

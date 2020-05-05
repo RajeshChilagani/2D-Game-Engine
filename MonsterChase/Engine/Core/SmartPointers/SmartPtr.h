@@ -12,6 +12,9 @@ template <typename T>
 class SmartPtr
 {
 	friend WeakPtr<T>;
+
+	template<typename U>
+	friend class SmartPtr;
 public:
 	explicit SmartPtr() {}
 	explicit SmartPtr(T* i_T) :m_T(i_T), m_RefCount(i_T?new RefCount(1, 0):nullptr) {}
@@ -19,15 +22,6 @@ public:
 	{
 		if (m_RefCount)
 		{
-			/*if (m_RefCount->m_SmartPtrs == 0)
-			{
-				m_T = nullptr;
-				m_RefCount = nullptr;
-			}
-			else
-			{
-				(m_RefCount->m_SmartPtrs)++;
-			}*/
 			m_RefCount->m_SmartPtrs++;
 		}
 		
@@ -51,6 +45,19 @@ public:
 	{
 		i_Other.m_T = nullptr;
 		i_Other.m_RefCount = nullptr;
+	}
+	template<typename U>
+	SmartPtr(const SmartPtr<U>& i_Other) : m_T(i_Other.m_T), m_RefCount(i_Other.m_RefCount)
+	{
+		if (m_RefCount)
+		{
+			assert(m_T != nullptr);
+			m_RefCount->m_SmartPtrs++;
+		}
+		else
+		{
+			assert(m_T == nullptr);
+		}
 	}
 	SmartPtr& operator=(const SmartPtr& i_Rhs)
 	{

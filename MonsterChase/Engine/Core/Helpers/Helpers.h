@@ -6,12 +6,13 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+//Logging System
 #if _DEBUG
 #define TRACE_ERROR(s){std::stringstream os;os<<"\nError:";os<<s;os<<std::endl;OutputDebugStringA( os.str().c_str() );}
 #define TRACE_INFO(s){std::stringstream os;os<<"\nINFO:";os<<s;os<<std::endl;OutputDebugStringA( os.str().c_str() );}
 #else
-#define TRACE_ERROR(s){std::wostringstream os;os<<s;}
-#define TRACE_INFO(s){std::wostringstream os;os<<s;}
+#define TRACE_ERROR(s) NULL
+#define TRACE_INFO(s) NULL
 #endif // _DEBUG
 namespace Engine
 {

@@ -6,7 +6,7 @@
         {
           "Name": "Transform",
           "Position": {
-            "x": 0,
+            "x": 300,
             "y": 0,
             "z": 0
           },
@@ -20,10 +20,12 @@
           "Name": "PhysicsBody",
           "mass": 1,
           "drag": 1,
+          "EnableGravity":false,
+          "Simulate":true,
           "ExternalForce": {
-            "x": "0",
-            "y": "0",
-            "z": "0"
+            "x": 0,
+            "y": 0,
+            "z": 0
           }
         },
         {
@@ -44,7 +46,7 @@
         {
           "Name": "Transform",
           "Position": {
-            "x": 100,
+            "x": -300,
             "y": 0,
             "z": 0
           },
@@ -57,12 +59,18 @@
         {
           "Name": "PhysicsBody",
           "mass": 1,
-          "drag": 1,
+          "drag": 0,
+          "EnableGravity":false,
+          "Simulate":true,
           "ExternalForce": {
-            "x": "0",
-            "y": "0",
-            "z": "0"
+            "x": 0,
+            "y": 0,
+            "z": 0
           }
+        },
+        {
+          "Name": "EnemyController",
+          "ForceY":50.0
         },
         {
           "Name": "SpriteRenderer",
@@ -72,6 +80,193 @@
           "Name": "ColliderComponent"
         }
       ]
+    },
+    
+    {
+      "Name": "PlatformBottom",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Position": {
+            "x": 0,
+            "y": -330,
+            "z": 0
+          },
+          "Rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "PhysicsBody",
+          "mass": 1,
+          "drag": 1,
+          "EnableGravity":false,
+          "Simulate":false,
+          "ExternalForce": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "SpriteRenderer",
+          "FileLocaiton": "Assests\\Platform.dds"
+        },
+        {
+          "Name": "ColliderComponent"
+        }
+      ]
+    },
+    {
+      "Name": "PlatformTop",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Position": {
+            "x": 0,
+            "y": 270,
+            "z": 0
+          },
+          "Rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "PhysicsBody",
+          "mass": 1,
+          "drag": 1,
+          "EnableGravity":false,
+          "Simulate":false,
+          "ExternalForce": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "SpriteRenderer",
+          "FileLocaiton": "Assests\\Platform.dds"
+        },
+        {
+          "Name": "ColliderComponent"
+        }
+      ]
+    },
+    {
+      "Name": "PlatformLeft",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Position": {
+            "x": -400,
+            "y": -130,
+            "z": 0
+          },
+          "Rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "PhysicsBody",
+          "mass": 1,
+          "drag": 1,
+          "EnableGravity":false,
+          "Simulate":false,
+          "ExternalForce": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "SpriteRenderer",
+          "FileLocaiton": "Assests\\Vertical.dds"
+        },
+        {
+          "Name": "ColliderComponent"
+        }
+      ]
+    },
+    {
+      "Name": "PlatformRight",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Position": {
+            "x": 400,
+            "y": -270,
+            "z": 0
+          },
+          "Rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "PhysicsBody",
+          "mass": 1,
+          "drag": 1,
+          "EnableGravity":false,
+          "Simulate":false,
+          "ExternalForce": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "SpriteRenderer",
+          "FileLocaiton": "Assests\\Vertical.dds"
+        },
+        {
+          "Name": "ColliderComponent"
+        }
+      ]
+    },
+    {
+      "Name": "Pong",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Position": {
+            "x": 237,
+            "y": 100,
+            "z": 0
+          },
+          "Rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 45
+          }
+        },
+        {
+          "Name": "PhysicsBody",
+          "mass": 0.1,
+          "drag": 0,
+          "EnableGravity":false,
+          "Simulate":true,
+          "ExternalForce": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "Name": "SpriteRenderer",
+          "FileLocaiton": "Assests\\5.dds"
+        },
+        {
+          "Name": "ColliderComponent"
+        }
+      ]
     }
+    
   ]
 }

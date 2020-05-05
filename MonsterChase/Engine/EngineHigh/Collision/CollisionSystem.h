@@ -18,12 +18,13 @@ namespace Engine
 			return *Instance;
 		}
 		static bool Init();
-		static void AddCollisionObject(SmartPtr<Entity> i_CollisionBody);
+		static void AddCollisionObject(const SmartPtr<Entity>& i_CollisionBody);
 		static void Run(Timer delta);
-		static bool CheckAABB(SmartPtr<Entity>& i_A, SmartPtr<Entity>& i_B, Timer deltaTime);
 		static void ShutDown();
-		void UpdateCollidingObjects();
+		void CheckForNewCollidables();
 		void Update(Timer deltaTime);
+		void RefreshCollidables();
+		bool CheckCollision(SmartPtr<Entity>& i_A, SmartPtr<Entity>& i_B, Timer deltaTime,float& i_CollisionTime,MATH_API::Vector3& i_ColNormal);
 	private:
 		Collision() {}
 		vector<WeakPtr<Entity>>   m_CollisionObjects;

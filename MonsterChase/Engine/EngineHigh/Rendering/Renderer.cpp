@@ -16,16 +16,18 @@ namespace Engine
 	{
 		GLib::BeginRendering();
 		GLib::Sprites::BeginRendering();
-		Renderer& Instance = RENDERER;
-		for (size_t i = 0; i < Instance.m_Renderables.size(); ++i)
+		for (size_t i = 0; i <m_Renderables.size(); ++i)
 		{
-			if (Instance.m_Renderables[i])
+			if (m_Renderables[i])
 			{
-				SmartPtr<Entity> RenderObject = Instance.m_Renderables[i].Acquire();
+				SmartPtr<Entity> RenderObject = m_Renderables[i].Acquire();
 				if (RenderObject->getactive())
 				{
 					SpriteRenderer& RenderCommponent = *(RenderObject->getComponent<SpriteRenderer>());
-					GLib::Render(*(RenderCommponent.SpriteObject()), RenderCommponent.Offset(), Math::DegreeToRadians(RenderCommponent.GetZRotation()));
+					if (RenderCommponent.SpriteObject())
+					{
+						GLib::Render(*(RenderCommponent.SpriteObject()), RenderCommponent.Offset(), Math::DegreeToRadians(RenderCommponent.GetZRotation()));
+					}					
 				}
 			}
 			
@@ -51,7 +53,7 @@ namespace Engine
 	{
 		delete &Get();
 	}
-	void Renderer::AddRendererObject(SmartPtr<Entity> i_Renderable)
+	void Renderer::AddRendererObject(const SmartPtr<Entity>& i_Renderable)
 	{
 		ScopeLock Lock(NewRenderableMutex);
 		RENDERER.m_NewRenderables.emplace_back(i_Renderable);

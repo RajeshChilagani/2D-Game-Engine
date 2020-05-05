@@ -19,6 +19,16 @@ namespace Engine
 		}
 		m_NewPhysicsObjects.clear();
 	}
+	void Physics::RefreshPhysicsObjects()
+	{
+		for (unsigned int i = 0; i < m_PhysicsObjects.size(); i++)
+		{
+			if (!(m_PhysicsObjects[i]))
+			{
+				m_PhysicsObjects.erase(m_PhysicsObjects.begin() + i);
+			}
+		}
+	}
 	void Physics::Update(float deltaTime)
 	{
 		Physics& Instance = PHYSICS;
@@ -27,14 +37,21 @@ namespace Engine
 			if (Instance.m_PhysicsObjects[i])
 			{
 				SmartPtr<Entity> PhysicsObject = Instance.m_PhysicsObjects[i].Acquire();
-				MATH_API::Vector3 Force = Instance.m_Gravity + PhysicsObject->getComponent<PhysicsBody>()->ExternalForce() + (-PhysicsObject->getComponent<PhysicsBody>()->Drag() * PhysicsObject->getComponent<Transform>()->getVelocity());
-				if (PhysicsObject->getactive())
+				if (PhysicsObject->getComponent<PhysicsBody>()->Simulate())
 				{
-					MATH_API::Vector3 Acceleration = Force / PhysicsObject->getComponent<PhysicsBody>()->Mass();
-					MATH_API::Vector3 OldVelocity = PhysicsObject->getComponent<Transform>()->getVelocity();
-					PhysicsObject->getComponent<Transform>()->setVelocity() = OldVelocity + Acceleration * deltaTime;
-					PhysicsObject->getComponent<Transform>()->setPosition() = PhysicsObject->getComponent<Transform>()->getPosition() + ((OldVelocity + PhysicsObject->getComponent<Transform>()->getVelocity()) / 2)*deltaTime;
+					MATH_API::Vector3 Force = PhysicsObject->getComponent<PhysicsBody>()->ExternalForce() + (-PhysicsObject->getComponent<PhysicsBody>()->Drag() * PhysicsObject->getComponent<Transform>()->getVelocity());
+					if (PhysicsObject->getComponent<PhysicsBody>()->EnableGravity())
+					{
+						Force += m_Gravity;
+					}
+					if (PhysicsObject->getactive())
+					{
+						MATH_API::Vector3 Acceleration = Force / PhysicsObject->getComponent<PhysicsBody>()->Mass();
+						MATH_API::Vector3 OldVelocity = PhysicsObject->getComponent<Transform>()->getVelocity();
+						PhysicsObject->getComponent<Transform>()->setVelocity() = OldVelocity + Acceleration * deltaTime;
+						PhysicsObject->getComponent<Transform>()->setPosition() = PhysicsObject->getComponent<Transform>()->getPosition() + ((OldVelocity + PhysicsObject->getComponent<Transform>()->getVelocity()) / 2)*deltaTime;
 
+					}
 				}
 			}
 		}
@@ -48,7 +65,7 @@ namespace Engine
 	{
 		delete &Get();
 	}
-	void Physics::AddPhysicsObject(SmartPtr<Entity> i_PhysicsBody)
+	void Physics::AddPhysicsObject(const SmartPtr<Entity>& i_PhysicsBody)
 	{
 		ScopeLock Lock(NewPhysicsMutex);
 		Get().m_NewPhysicsObjects.emplace_back(i_PhysicsBody);

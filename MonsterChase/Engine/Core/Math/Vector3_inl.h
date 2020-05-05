@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Helpers/Helpers.h"
+#include <math.h>
 namespace Engine
 {
 	namespace Math
@@ -99,6 +100,38 @@ namespace Engine
 			m_z = -m_z;
 			return *this;
 		}
+		inline float Vector3::Length() const
+		{
+			return static_cast<float>(sqrt(LengthSq()));
+		}
+		inline float Vector3::LengthSq() const
+		{
+			return (m_x* m_x) + (m_y* m_y) + (m_z* m_z);
+		}
+
+		inline void Vector3::Normalize()
+		{
+			float VectorLength = Length();
+			
+			if (!Helpers::IsEqualToZero(VectorLength))
+			{
+				*this /= VectorLength;
+			}
+
+		}
+		inline Vector3 Vector3::GetNormalized() const
+		{
+			float VectorLength = Length();
+
+			if (!Helpers::IsEqualToZero(VectorLength))
+			{
+				return *this / VectorLength;
+			}
+			else
+			{
+				return zero;
+			}
+		}
 		//Standalone
 
 		inline Vector3 Math::operator+(const Vector3 & i_lhs, const Vector3 & i_rhs)
@@ -155,6 +188,10 @@ namespace Engine
 		inline bool Math::operator!=(const Vector3 & i_lhs, const Vector3 & i_rhs)
 		{
 			return !Math::operator==(i_lhs, i_rhs);
+		}
+		inline float dot(const Vector3 & i_lhs, const Vector3 & i_rhs)
+		{
+			return i_lhs.x()*i_rhs.x() + i_lhs.y()*i_rhs.y() + i_lhs.z()*i_rhs.z();
 		}
 	}
 }

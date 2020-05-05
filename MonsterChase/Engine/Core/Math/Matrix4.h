@@ -14,6 +14,7 @@ namespace Engine
 			void SetIdentity();
 			void Invert();
 			void Transpose();
+			Vector4 Col(unsigned int i_ColIndex) const;
 			Matrix4 GetInverse();
 			Matrix4 GetTranspose();
 			//operator

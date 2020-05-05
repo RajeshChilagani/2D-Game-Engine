@@ -16,7 +16,7 @@ namespace Engine
 			return *Instance;
 		}
 		static bool Init();
-		static void AddRendererObject(SmartPtr<Entity> i_Renderable);
+		static void AddRendererObject(const SmartPtr<Entity>& i_Renderable);
 		static void Run(Timer delta);
 		static void ShutDown();
 		void UpdateRenderables();

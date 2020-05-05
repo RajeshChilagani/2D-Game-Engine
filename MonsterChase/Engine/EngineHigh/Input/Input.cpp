@@ -9,7 +9,7 @@ namespace Engine
 	void Input::Init()
 	{
 		s_Instance = new Input();
-		s_Instance->MapKeys(KC_A, KC_D, KC_W, KC_S, 100.0f);         //Default Mapping for keys
+		s_Instance->MapKeys(KC_A, KC_D, KC_W, KC_S, 0.0f,100.0f);         //Default Mapping for keys
 	}
 	void Input::InputCallBack(unsigned int i_VKeyID, bool bWentDown)
 	{
@@ -28,14 +28,15 @@ namespace Engine
 			return true;
 		return false;
 	}
-	void Input::MapKeys(int i_Left, int i_Right, int i_Up, int i_Down, float force)
+	void Input::MapKeys(int i_Left, int i_Right, int i_Up, int i_Down, float i_ForceX, float i_ForceY)
 	{
-		s_Mappings[0] = i_Left;
-		s_Mappings[1] = i_Right;
-		s_Mappings[2] = i_Up;
-		s_Mappings[3] = i_Down;
-		s_Force = force;
-		s_isMappingDone = true;
+		m_Mappings[0] = i_Left;
+		m_Mappings[1] = i_Right;
+		m_Mappings[2] = i_Up;
+		m_Mappings[3] = i_Down;
+		m_X = i_ForceX;
+		m_Y = i_ForceY;
+		m_isMappingDone = true;
 	}
 	void Input::ShutDown()
 	{

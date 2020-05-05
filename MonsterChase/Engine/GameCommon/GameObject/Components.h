@@ -59,7 +59,7 @@ class PhysicsBody :public Component
 public:
 	PhysicsBody()
 	{}
-	PhysicsBody(float i_Mass = 0.0f, float i_Drag = 0.0f) :m_Mass(i_Mass), m_Drag(i_Drag), m_ExternalForce(MATH_API::Vector3(0.0f, 0.0f, 0.0f)) {}
+	PhysicsBody(float i_Mass = 0.0f, float i_Drag = 0.0f,bool i_EnableGravity=false,bool i_Simulate=false,MATH_API::Vector3 i_ExternalForce=MATH_API::Vector3::zero) :m_Mass(i_Mass), m_Drag(i_Drag),m_EnableGravity(i_EnableGravity), m_Simulate(i_Simulate),m_ExternalForce(i_ExternalForce) {}
 	inline void init() override
 	{
 
@@ -68,11 +68,15 @@ public:
 	{
 
 	}
-	inline float Mass() { return m_Mass; }
-	inline float Drag() { return m_Drag; }
+	inline float Mass() const { return m_Mass; }
+	inline float Drag() const { return m_Drag; }
+	inline bool EnableGravity() const { return m_EnableGravity; }
+	inline bool Simulate() const { return m_Simulate; }
 	inline MATH_API::Vector3& ExternalForce() { return m_ExternalForce; }
 private:
 	float m_Mass, m_Drag;
+	bool m_EnableGravity;
+	bool m_Simulate;
 	MATH_API::Vector3 m_ExternalForce;
 };
 class PlayerController : public Component
@@ -89,13 +93,13 @@ public:
 			Engine::Input& IP = INPUT;
 			PhysicsBody& PB = *entity->getComponent<PhysicsBody>();
 			if (Engine::Input::IsKeyPressed(IP.GetMapppings()[0]))
-				PB.ExternalForce() = MATH_API::Vector3(-(IP.GetForce()), 0.0f, 0.0f);
+				PB.ExternalForce() = MATH_API::Vector3(-(IP.GetForceX()), 0.0f, 0.0f);
 			else if (Engine::Input::IsKeyPressed(INPUT.GetMapppings()[1]))
-				PB.ExternalForce() = MATH_API::Vector3((IP.GetForce()), 0.0f, 0.0f);
+				PB.ExternalForce() = MATH_API::Vector3((IP.GetForceX()), 0.0f, 0.0f);
 			else if (Engine::Input::IsKeyPressed(INPUT.GetMapppings()[2]))
-				PB.ExternalForce() = MATH_API::Vector3(0.0f, IP.GetForce(), 0.0f);
+				PB.ExternalForce() = MATH_API::Vector3(0.0f, IP.GetForceY(), 0.0f);
 			else if (Engine::Input::IsKeyPressed(INPUT.GetMapppings()[3]))
-				PB.ExternalForce() = MATH_API::Vector3(0.0f, -(IP.GetForce()), 0.0f);
+				PB.ExternalForce() = MATH_API::Vector3(0.0f, -(IP.GetForceY()), 0.0f);
 			else
 				PB.ExternalForce() = MATH_API::Vector3(0.0f, 0.0f, 0.0f);
 		}
@@ -105,20 +109,31 @@ private:
 class EnemyController : public Component
 {
 public:
-	EnemyController():m_OwnTransform(nullptr)
+	EnemyController(float i_ForceY = 0) :m_ForceY(i_ForceY) {}
+	void init() override
 	{
 		
 	}
-	void init() override
-	{
-		m_OwnTransform = entity->getComponent<Transform>();
-	}
 	void update() override
 	{
-		m_OwnTransform->setPosition();
+		if (entity && entity->getComponent<PhysicsBody>())
+		{
+			Engine::Input& IP = INPUT;
+			PhysicsBody& PB = *entity->getComponent<PhysicsBody>();
+			Transform& transform = *entity->getComponent<Transform>();
+			if (transform.getPosition().y() >=-10)
+			{
+				m_ForceY = -50;
+			}
+			else if (transform.getPosition().y() <= -50)
+			{
+				m_ForceY = 50;
+			}
+			PB.ExternalForce() = MATH_API::Vector3(0.0f, m_ForceY, 0.0f);
+		}
 	}
 private:
-	Transform*          m_OwnTransform;
+	float m_ForceY;
 };
 
 class SpriteRenderer : public Component

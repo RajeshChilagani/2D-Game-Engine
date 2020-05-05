@@ -107,7 +107,7 @@ public:
 		static Manager* Instance = new Manager(); 
 		return *Instance;
 	}
-	void AddEntity(SmartPtr<Entity> i_Entity)
+	void AddEntity(const SmartPtr<Entity>& i_Entity)
 	{
 		m_Entities.emplace_back(i_Entity);
 	}

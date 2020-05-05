@@ -1,7 +1,5 @@
 #include "EngineHigh/GlobalSystem/GlobalSystem.h"
-#include "GameCommon/GameObject/EC.h"
 #include "GameCommon/GameObject/Components.h"
-#include "Core/SmartPointers/SmartPtr.h"
 #include "EngineHigh/Physics/PhysicsCore.h"
 #include "EngineHigh/Rendering/Renderer.h"
 #include "EngineHigh/Collision/CollisionSystem.h"
@@ -17,6 +15,15 @@ namespace Engine
 		std::vector<SmartPtr<Entity>> AllEntities;
 		std::vector<SmartPtr<Entity>> NewEntities;
 		Mutex NewEntitiesMutex;
+		SmartPtr<Entity> GetEntityAt(size_t i_Index)
+		{
+			//assert(!(i_Index >= AllEntities.size()));
+			if (i_Index < AllEntities.size())
+			{
+				return AllEntities[i_Index];
+			}
+			return SmartPtr<Entity>(nullptr);
+		}
 		void CheckForNewEntities()
 		{
 			ScopeLock Lock(NewEntitiesMutex);
@@ -51,7 +58,7 @@ namespace Engine
 					{
 						if (!INPUT.GetIsMappingDone())
 						{
-							TRACE_ERROR("Missing Key Mapping Please Provide Key Mapping")
+							TRACE_ERROR("Missing Key Mapping Please Provide Key Mapping");
 						}
 						assert(INPUT.GetIsMappingDone());
 
@@ -63,14 +70,14 @@ namespace Engine
 				}
 				else
 				{
-					TRACE_ERROR("" << typeid(T).name() << "Component already exists Cannot add duplicate")
-						delete ComponentToAttach;
+					TRACE_ERROR("" << typeid(T).name() << "Component already exists Cannot add duplicate");
+					delete ComponentToAttach;
 				}
 
 			}
 			else
 			{
-				TRACE_ERROR(" Invalid Object" << " To add " << typeid(T).name() << " component")
+				TRACE_ERROR(" Invalid Object" << " To add " << typeid(T).name() << " component");
 			}
 
 		}
@@ -79,7 +86,7 @@ namespace Engine
 		{
 			ScopeLock Lock(NewEntitiesMutex);
 			NewEntities.emplace_back(new Entity(i_EntityName));
-			SmartPtr<Entity> entity = NewEntities.back();
+			SmartPtr<Entity>& entity = NewEntities.back();
 			for (unsigned int comps = 0; comps < EntityData["Components"].size(); ++comps)
 			{
 				Json component = EntityData["Components"][comps];
@@ -95,7 +102,10 @@ namespace Engine
 				{
 					float mass = component["mass"];
 					float drag = component["drag"];
-					Engine::GlobalSystem::AddComponent<PhysicsBody>(entity, mass, drag);
+					bool enableGravity = component["EnableGravity"];
+					bool simulate = component["Simulate"];
+					MATH_API::Vector3 externalForce(static_cast<float>(component["ExternalForce"]["x"]), static_cast<float>(component["ExternalForce"]["y"]), static_cast<float>(component["ExternalForce"]["z"]));
+					Engine::GlobalSystem::AddComponent<PhysicsBody>(entity, mass, drag, enableGravity,simulate,externalForce);
 				}
 				else if (!componentName.compare("SpriteRenderer"))
 				{
@@ -105,6 +115,11 @@ namespace Engine
 				else if (!componentName.compare("PlayerController"))
 				{
 					Engine::GlobalSystem::AddComponent<PlayerController>(entity);
+				}
+				else if (!componentName.compare("EnemyController"))
+				{
+					float forceY = component["ForceY"];
+					Engine::GlobalSystem::AddComponent<EnemyController>(entity,forceY);
 				}
 				else if (!componentName.compare("ColliderComponent"))
 				{

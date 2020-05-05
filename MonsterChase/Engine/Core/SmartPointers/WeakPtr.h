@@ -6,7 +6,7 @@ class WeakPtr
 	friend SmartPtr<T>;
 public:
 	explicit WeakPtr():m_T(nullptr),m_RefCount(nullptr) {}
-	WeakPtr(SmartPtr<T>& i_Other) :m_T(i_Other.m_T),m_RefCount(i_Other.m_RefCount)
+	WeakPtr(const SmartPtr<T>& i_Other) :m_T(i_Other.m_T),m_RefCount(i_Other.m_RefCount)
 	{
 		if (m_RefCount)
 		{
