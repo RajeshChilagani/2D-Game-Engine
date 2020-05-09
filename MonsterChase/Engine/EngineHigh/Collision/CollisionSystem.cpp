@@ -39,14 +39,14 @@ namespace Engine
 		}
 	}
 	void Collision::Update(Timer deltaTime)
-	{	
+	{
 		float tEnd = deltaTime.GetSeconds();
 		float dt = tEnd;
 		float tBegin = 0;
 		do
-		{	
+		{
 			CollisionPair EarliestCollision;
-			EarliestCollision.CollisionTime = dt;
+			EarliestCollision.CollisionTime = tEnd;
 			size_t CollidablesCount = m_CollisionObjects.size();
 			if (CollidablesCount > 1)
 			{
@@ -58,11 +58,11 @@ namespace Engine
 						float CollisionTime = tBegin;
 						MATH_API::Vector3 ColNormal;
 						SmartPtr<Entity> JCollisionObject = m_CollisionObjects[j].Acquire();
-						if (CheckCollision(ICollisionObject, JCollisionObject, dt, CollisionTime, ColNormal))
+						if (CheckCollision(ICollisionObject, JCollisionObject, tEnd, CollisionTime, ColNormal))
 						{
 							TRACE_INFO("Collision Occured ->Normal: " << ColNormal);
 							TRACE_INFO("Collision Occured->Time" << CollisionTime);
-							if (CollisionTime < EarliestCollision.CollisionTime)
+							if (CollisionTime > tBegin && CollisionTime < EarliestCollision.CollisionTime)
 							{
 								EarliestCollision.CollisionTime = CollisionTime;
 								EarliestCollision.CollisonNormal = ColNormal;
@@ -84,42 +84,67 @@ namespace Engine
 				}
 				SmartPtr<Entity> Object1 = EarliestCollision.CollidedObjects[0].Acquire();
 				SmartPtr<Entity> Object2 = EarliestCollision.CollidedObjects[1].Acquire();
-				if (Object1->HasComponent<PhysicsBody>() && Object2->HasComponent<PhysicsBody>()) 
+				if (Object1->HasComponent<PhysicsBody>() && Object2->HasComponent<PhysicsBody>())
 				{
 					MATH_API::Vector3 Normal = EarliestCollision.CollisonNormal;
+					MATH_API::Vector3 Obj1Normal = Normal;
+					MATH_API::Vector3 Obj2Normal = Normal;
+					if (Normal.x() != 0)
+					{
+						if (Object1->getComponent<Transform>()->getPosition().x() < Object2->getComponent<Transform>()->getPosition().x())
+						{
+							Obj1Normal = Normal * -1;
+						}
+						else
+						{
+							Obj2Normal = Normal * -1;
+						}
+					}
+					else
+					{
+						if (Object1->getComponent<Transform>()->getPosition().y() < Object2->getComponent<Transform>()->getPosition().y())
+						{
+							Obj1Normal = Normal * -1;
+						}
+						else
+						{
+							Obj2Normal = Normal * -1;
+						}
+					}
 					float m1 = Object1->getComponent<PhysicsBody>()->Mass();
 					float m2 = Object2->getComponent<PhysicsBody>()->Mass();
 					MATH_API::Vector3 v1 = Object1->getComponent<Transform>()->getVelocity();
-					MATH_API::Vector3 v2 = Object2->getComponent<Transform>()->getVelocity();				
+					MATH_API::Vector3 v2 = Object2->getComponent<Transform>()->getVelocity();
 					if (Object1->getComponent<PhysicsBody>()->Simulate() && Object2->getComponent<PhysicsBody>()->Simulate())    //if both objects simulate physics
 					{
 						Object1->getComponent<Transform>()->setVelocity() = ((m1 - m2) / (m1 + m2))*v1 + ((2 * m2) / (m1 + m2))*v2;
 						Object2->getComponent<Transform>()->setVelocity() = ((m2 - m1) / (m1 + m2))*v2 + ((2 * m1) / (m1 + m2))*v1;
 						MATH_API::Vector3 newv1 = Object1->getComponent<Transform>()->getVelocity();
 						MATH_API::Vector3 newv2 = Object2->getComponent<Transform>()->getVelocity();
-						float TowardsNormal = MATH_API::dot(Normal, newv1);
+						
+						float TowardsNormal = MATH_API::dot(Obj1Normal, newv1);
 						if (TowardsNormal < 0)
-							Object1->getComponent<Transform>()->setVelocity() = (-newv1 - 2 * (Normal*MATH_API::dot(Normal, -newv1) - newv1));
-						TowardsNormal = MATH_API::dot(Normal, newv2);
+							Object1->getComponent<Transform>()->setVelocity() = (newv1 - 2 * (MATH_API::dot(Obj1Normal, newv1))*Obj1Normal);
+						TowardsNormal = MATH_API::dot(Obj2Normal, newv2);
 						if (TowardsNormal < 0)
-							Object2->getComponent<Transform>()->setVelocity() = (-newv2 - 2 * (Normal*MATH_API::dot(Normal, -newv2) - newv2));
+							Object1->getComponent<Transform>()->setVelocity() = (newv2 - 2 * (MATH_API::dot(Obj2Normal, newv2))*Obj2Normal);
 					}
 					else if (Object1->getComponent<PhysicsBody>()->Simulate())
 					{
 						MATH_API::Vector3 newv1 = Object1->getComponent<Transform>()->getVelocity();
-						Object1->getComponent<Transform>()->setVelocity() = (-newv1 - 2 * (Normal*MATH_API::dot(Normal, -newv1) - newv1));
+						Object1->getComponent<Transform>()->setVelocity() = (newv1 - 2 * (MATH_API::dot(Obj1Normal, newv1))*Obj1Normal);
 					}
 					else if (Object2->getComponent<PhysicsBody>()->Simulate())
 					{
 						MATH_API::Vector3 newv2 = Object2->getComponent<Transform>()->getVelocity();
-						Object2->getComponent<Transform>()->setVelocity() = (-newv2 - 2 * (Normal*MATH_API::dot(Normal, -newv2) - newv2));
+						Object1->getComponent<Transform>()->setVelocity() = (newv2 - 2 * (MATH_API::dot(Obj2Normal, newv2))*Obj2Normal);
 					}
 				}
-				
+
 			}
 			tBegin = EarliestCollision.CollisionTime;
-			dt=dt- EarliestCollision.CollisionTime;
-		} while (tBegin < tEnd && tBegin>0);
+			dt = dt - EarliestCollision.CollisionTime;
+		} while (dt > 0);
 	}
 	void Collision::Run(Timer delta)
 	{
@@ -200,7 +225,7 @@ namespace Engine
 				{
 					BeginOverlap = B_tClose_X;
 					//MATH_API::Vector4 NormalAxisInWorld = mRotB.Col(0);
-					MATH_API::Vector4 NormalAxisInWorld = mBToWorld*Vector4(1.0f,0.0f,0.0f,0.0f);
+					MATH_API::Vector4 NormalAxisInWorld = mBToWorld * Vector4(1.0f, 0.0f, 0.0f, 0.0f);
 					i_ColNormal = MATH_API::Vector3(NormalAxisInWorld.x(), NormalAxisInWorld.y(), NormalAxisInWorld.z()).GetNormalized();
 				}
 				if (B_tOpen_X < EndOverlap)
@@ -213,6 +238,11 @@ namespace Engine
 				if (!(A_BBCenterInB.x() > B_Left_X && A_BBCenterInB.x() < B_Right_X))
 				{
 					return false;
+				}
+				if (!(BeginOverlap > i_CollisionTime))
+				{
+					MATH_API::Vector4 NormalAxisInWorld = mBToWorld * Vector4(1.0f, 0.0f, 0.0f, 0.0f);
+					i_ColNormal = MATH_API::Vector3(NormalAxisInWorld.x(), NormalAxisInWorld.y(), NormalAxisInWorld.z()).GetNormalized();
 				}
 			}
 		}
@@ -260,6 +290,11 @@ namespace Engine
 				if (!(A_BBCenterInB.y() > B_Left_Y && A_BBCenterInB.y() < B_Right_Y))
 				{
 					return false;
+				}
+				if (!(BeginOverlap > i_CollisionTime))
+				{
+					MATH_API::Vector4 NormalAxisInWorld = mBToWorld * Vector4(0.0f, 1.0f, 0.0f, 0.0f);
+					i_ColNormal = MATH_API::Vector3(NormalAxisInWorld.x(), NormalAxisInWorld.y(), NormalAxisInWorld.z()).GetNormalized();
 				}
 			}
 		}
@@ -316,6 +351,11 @@ namespace Engine
 				{
 					return false;
 				}
+				if (!(BeginOverlap > i_CollisionTime))
+				{
+					MATH_API::Vector4 NormalAxisInWorld = mAToWorld * Vector4(1.0f, 0.0f, 0.0f, 0.0f);
+					i_ColNormal = MATH_API::Vector3(NormalAxisInWorld.x(), NormalAxisInWorld.y(), NormalAxisInWorld.z()).GetNormalized();
+				}
 			}
 		}
 
@@ -362,6 +402,11 @@ namespace Engine
 				if (!(B_BBCenterInA.y() > A_Left_Y && B_BBCenterInA.y() < A_Right_Y))
 				{
 					return false;
+				}
+				if (!(BeginOverlap > i_CollisionTime))
+				{
+					MATH_API::Vector4 NormalAxisInWorld = mAToWorld * Vector4(0.0f, 1.0f, 0.0f, 0.0f);
+					i_ColNormal = MATH_API::Vector3(NormalAxisInWorld.x(), NormalAxisInWorld.y(), NormalAxisInWorld.z()).GetNormalized();
 				}
 			}
 

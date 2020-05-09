@@ -5,7 +5,7 @@ namespace Game
 {
 	bool isGameOver()
 	{
-		SmartPtr<Entity> Pong = Engine::GlobalSystem::GetEntityAt(6);
+		SmartPtr<Entity> Pong = Engine::GlobalSystem::GetEntityAt(2);
 		if (Pong)
 		{
 			float xPos = Pong->getComponent<Transform>()->getPosition().x();
